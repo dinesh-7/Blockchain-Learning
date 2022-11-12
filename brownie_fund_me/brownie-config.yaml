@@ -1,0 +1,11 @@
+dependencies:
+  # <github_repo>@<version--->are changing continuously need to change according to us>
+  - smartcontractkit/chainlink-brownie-contracts@1.2.0
+compiler:
+  # now need to tell compiler @chainlink comes use the above dependencies
+  solc:
+    remappings:
+      - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.2.0'
+dotenv: .env
+wallets:
+  from_key: ${Private_key}
