@@ -7,6 +7,7 @@ pragma solidity ^0.8.0;
 //give in the value section-> so how will i get todays ethereum price->so i want to connect to oracles or chainlink
 //which gives me the data what i want -> with that i am going to do basic math and uint and int type casting
 
+// https://github.com/smartcontractkit/chainlink-brownie-contracts we took the below chainlink from this github repo
 //now we are going to verify this contract in etherscan for that etherscan it cannot unzip or read @chainlink so we need to paste the whole code here but brownie has a cool feature
 // for that we need to create the API key from etherscan and we are adding that in the environment variable **export ETHERSCAN_TOKEN = SD8V3N8YAGHBW7AUX33IQMSU8H2M4D7UAB** and browine will verfiy the contract
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"; //remix can read this but brownie cannot so add dependies and remapping from brownie-config.yaml
@@ -21,8 +22,10 @@ contract Fundme {
     address[] public funders; // an array to store who all funded to our System
     mapping(address => uint256) public funder_amount; // map to store how much who funded
     address public immutable owner; //gas efficiency
+    AggregatorV3Interface public priceFeed;
 
-    constructor() {
+    constructor(address _pricefeed) {
+        priceFeed = AggregatorV3Interface(_pricefeed);
         owner = msg.sender;
     }
 
@@ -41,9 +44,10 @@ contract Fundme {
         //-> in that we imported that set of code from github using npm
         //we need address of goerli in which this priceconverted is deployed - Address: 0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e
         //then we need the ABI - so we are importing the code from the github and we are using
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e
-        );
+
+        // AggregatorV3Interface priceFeed = AggregatorV3Interface(
+        //     0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e
+        // ); //this part was hardcoded for these kind of things we can go 1.forking into 2chains but not advisable 2.Moking it is  being used by many of the comapany also where you will create a whole functionality of the Agreegartor for using it locally
         (
             ,
             /*uint80 roundID*/

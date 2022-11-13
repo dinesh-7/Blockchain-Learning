@@ -9,3 +9,9 @@ compiler:
 dotenv: .env
 wallets:
   from_key: ${Private_key}
+networks:
+  goreli:
+    eth_usd_price_feed: '0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e' # or i can store it in .env and also i can  reterive it
+    verfiy: True
+  development:
+    verfiy: False
